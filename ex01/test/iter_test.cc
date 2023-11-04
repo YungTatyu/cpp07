@@ -5,7 +5,7 @@
 #include "iter.hpp"
 
 template <typename T>
-void	_print(const T& value)
+void	_print(T& value)
 {
 	std::cout << value << "\n";
 }
@@ -15,7 +15,7 @@ TEST(iter_test, print) {
 	std::string	array[] = {"this", "is", "test", "period"};
 
 	testing::internal::CaptureStdout();
-	iter(&array, sizeof(array) / sizeof(std::string), _print);
+	iter(array, sizeof(array) / sizeof(std::string), _print);
 	std::string stdoutOutput = testing::internal::GetCapturedStdout();
 
 	EXPECT_EQ("this\nis\ntest\nperiod\n", stdoutOutput);
@@ -36,7 +36,7 @@ TEST(iter_test, increment) {
 		expect[i] = array[i] + 1;
 	}
 
-	iter(&array, size, _increment);
+	iter(array, size, _increment);
 	for (size_t i = 0; i < size; i++)
 	{
 		EXPECT_EQ(expect[i], array[i]);
