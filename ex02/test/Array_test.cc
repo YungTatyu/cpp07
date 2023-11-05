@@ -27,7 +27,6 @@ TEST(Array_test, operator) {
 	}
 	for (size_t i = 0; i < size; i++)
 	{
-		// i % 2 == 1 ? EXPECT_EQ(std::string("new ") + v[i], array[i]) : EXPECT_EQ("", array[i]);
 		if (i % 2 == 1)
 			EXPECT_EQ(std::string("new ") + v[i], array[i]);
 		else
