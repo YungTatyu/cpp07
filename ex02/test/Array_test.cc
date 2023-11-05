@@ -5,10 +5,8 @@
 #include "Array.hpp"
 #include <vector>
 
-template<typename T>
-
 TEST(Array_test, operator) {
-	std::vector<std::string>	v = {"thomas", "tachu", "yung", "what". "end"};
+	std::vector<std::string>	v = {"thomas", "tachu", "yung", "what", "end"};
 	const unsigned int	size = v.size();
 	Array<std::string>	array(size);
 
@@ -25,11 +23,15 @@ TEST(Array_test, operator) {
 	// 値の再代入のテスト
 	for (size_t i = 0; i < size; i++)
 	{
-		i % 2 == 1 ? array[i] = "new " + v[i] : array[i] = "";
+		i % 2 == 1 ? array[i] = std::string("new ") + v[i] : array[i] = "";
 	}
 	for (size_t i = 0; i < size; i++)
 	{
-		i % 2 == 1 ? EXPECT_EQ("new" + v[i], array[i]) : EXPECT_EQ("", array[i]);
+		// i % 2 == 1 ? EXPECT_EQ(std::string("new ") + v[i], array[i]) : EXPECT_EQ("", array[i]);
+		if (i % 2 == 1)
+			EXPECT_EQ(std::string("new ") + v[i], array[i]);
+		else
+			EXPECT_EQ("", array[i]);
 	}
 }
 
@@ -49,16 +51,18 @@ TEST(Array_test, deepCopy) {
 		array2[i] = v2[i];
 	}
 
-	Array<int>	tmp();
-	tmp = v1;
-	v1 = v2;
-	v2 = tmp;
+	Array<int>	tmp;
+	tmp = array1;
+	array1 = array2;
+	array2 = tmp;
 	for (size_t i = 0; i < v1.size(); i++)
 	{
+		std::cout << "v1=" << v1[i] << " array2=" << array2[i] << '\n';
 		EXPECT_EQ(v1[i], array2[i]);
 	}
 	for (size_t i = 0; i < v2.size(); i++)
 	{
+		std::cout << "v2=" << v2[i] << " array1=" << array1[i] << '\n';
 		EXPECT_EQ(v2[i], array1[i]);
 	}
 }

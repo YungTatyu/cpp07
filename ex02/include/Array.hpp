@@ -14,9 +14,8 @@ public:
 	Array();
 	Array(unsigned int n);
 	Array(const Array& other);
-	Array<T>&	operator=(const Array<T>& other) const;
-	T&	operator=(const T& other) const;
-	const T&	operator[](unsigned int index) const;
+	Array<T>&	operator=(const Array<T>& other);
+	T&	operator[](unsigned int index) const;
 	virtual ~Array();
 	unsigned int	size() const;
 };
@@ -40,34 +39,25 @@ Array<T>::~Array()
 }
 
 template <typename T>
-Array<T>&	Array<T>::operator=(const Array<T>& other) const
+Array<T>&	Array<T>::operator=(const Array<T>& other)
 {
 	if (this != &other)
 	{
 		delete[] _array;
-		_array = new T[other.size()];
+		this->_array = new T[other.size()];
+		this->_size = other.size();
 		for (unsigned int i = 0; i < other.size(); i++)
-			this->_array[i] = other[i];
+			(*this)[i] = other[i];
 	}
 	return *this;
 }
 
 template <typename T>
-T&	Array<T>::operator=(const T& other) const
-{
-	if (this != &other)
-	{
-		this = &other;
-	}
-	return *this;
-}
-
-template <typename T>
-const T&	Array<T>::operator[](const unsigned int index) const
+T&	Array<T>::operator[](const unsigned int index) const
 {
 	if (index >= this->size())
 	{
-		throw std::out_of_range("out of range");
+		throw std::out_of_range("Index out of range in Array::operator[]");
 	}
 	return _array[index];
 }
