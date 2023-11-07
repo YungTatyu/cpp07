@@ -5,7 +5,7 @@
 #include "iter.hpp"
 
 template <typename T>
-void	_print(T& value)
+void	_print(const T& value)
 {
 	std::cout << value << "\n";
 }
@@ -18,6 +18,8 @@ TEST(iter_test, print) {
 	iter(array, sizeof(array) / sizeof(std::string), _print);
 	std::string stdoutOutput = testing::internal::GetCapturedStdout();
 
+	const std::string	constArray[] = {"this", "is", "tachu"};
+	_print(constArray);
 	EXPECT_EQ("this\nis\ntest\nperiod\n", stdoutOutput);
 }
 
