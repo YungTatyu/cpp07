@@ -13,9 +13,9 @@ private:
 public:
 	Array();
 	Array(unsigned int n);
-	Array(const Array& other);
+	Array(const Array<T>& other);
 	Array<T>&	operator=(const Array<T>& other);
-	T&	operator[](unsigned int index) const;
+	T&	operator[](unsigned int index);
 	const T&	operator[](unsigned int index) const;
 	virtual ~Array();
 	unsigned int	size() const;
@@ -28,7 +28,7 @@ template <typename T>
 Array<T>::Array(unsigned int n) : _array(new T[n]), _size(n) {}
 
 template <typename T>
-Array<T>::Array(const Array& other) : _array(NULL)
+Array<T>::Array(const Array<T>& other) : _array(NULL)
 {
 	operator=(other);
 }
@@ -54,7 +54,17 @@ Array<T>&	Array<T>::operator=(const Array<T>& other)
 }
 
 template <typename T>
-T&	Array<T>::operator[](const unsigned int index) const
+T&	Array<T>::operator[](const unsigned int index)
+{
+	if (index >= this->size())
+	{
+		throw std::out_of_range("Index out of range in Array::operator[]");
+	}
+	return _array[index];
+}
+
+template <typename T>
+const T&	Array<T>::operator[](const unsigned int index) const
 {
 	if (index >= this->size())
 	{
@@ -70,9 +80,3 @@ unsigned int	Array<T>::size() const
 }
 
 #endif
-
-
-void	f(const &Array obj)
-{
-	std::cout << obg[0];
-}

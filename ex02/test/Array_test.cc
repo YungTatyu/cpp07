@@ -34,6 +34,19 @@ TEST(Array_test, operator) {
 	}
 }
 
+TEST(Array_test, copyConstructor) {
+
+	Array<int>	array1(3);
+	for (size_t i = 0; i < array1.size(); i++)
+		array1[i] = i;
+	Array<int>	array2(array1);
+	for (size_t i = 0; i < array1.size(); i++)
+	{
+		EXPECT_EQ(array1[i], array2[i]);
+	}
+}
+
+
 TEST(Array_test, deepCopy) {
 	std::vector<int>	v1 = {1, 2, 3};
 	std::vector<int>	v2 = {5, 6, 7, 8, 10};
@@ -83,4 +96,25 @@ TEST(Array_test, exception) {
 			array[2];
 		}
 	);
+}
+
+template <typename T>
+void	_printAllElement(const Array<T>& obj)
+{
+	for (size_t i = 0; i < obj.size(); i++)
+	{
+		std::cout << obj[i] << '\n';
+	}
+}
+
+
+TEST(Array_test, constTest) {
+
+	Array<int>	array(3);
+
+	array[0] = 1;
+	array[1] = 2;
+	array[2] = 3;
+	_printAllElement(array);
+	SUCCEED();
 }
