@@ -16,6 +16,7 @@ public:
 	Array(const Array& other);
 	Array<T>&	operator=(const Array<T>& other);
 	T&	operator[](unsigned int index) const;
+	const T&	operator[](unsigned int index) const;
 	virtual ~Array();
 	unsigned int	size() const;
 };
@@ -27,7 +28,7 @@ template <typename T>
 Array<T>::Array(unsigned int n) : _array(new T[n]), _size(n) {}
 
 template <typename T>
-Array<T>::Array(const Array& other)
+Array<T>::Array(const Array& other) : _array(NULL)
 {
 	operator=(other);
 }
@@ -69,3 +70,9 @@ unsigned int	Array<T>::size() const
 }
 
 #endif
+
+
+void	f(const &Array obj)
+{
+	std::cout << obg[0];
+}
